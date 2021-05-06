@@ -17,22 +17,28 @@ public:
     int Node_ID;
     string Node_Name;
 
-    void validate_Neighbour(Node* temp ) {
+    int validate_Neighbour(Node* temp ) {
         /*
             This method is used for checking neighbor by comparing the neighbor List.
             IT will return boolean type Data.
         */
+        int count = 0;
 
         if (temp != NULL) {
 
             cout << "*Node exists with key value in the Neighbour list" << endl;
+            cout << "" << endl;
+            count = 1;
+            cout << "Data of Neighbour's Database" << endl;
             cout << "" << endl;
         }
         else {
 
             cout << "*Node does not exists in the Neighbour list" << endl;
             cout << "" << endl;
+            count = 0;
         }
+        return count;
        
     }
 

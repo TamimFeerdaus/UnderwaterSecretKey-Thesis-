@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 #include "AESRaw.h"
@@ -7,8 +8,11 @@
 #include "Checking_Neighbour.cpp"
 #include "Checking_AUV_Sensor_Authentication.cpp"
 #include <conio.h>
-using namespace std;
+#include "SQLRetrieve.h"
+#include <cstring>
 
+using namespace std;
+int n;
 
 int main()
 {
@@ -70,14 +74,64 @@ int main()
     cin >> givenKey2;
 
     Checking_Neighbour ObjCheckNeigh;     //Object of a AUV Sensor checking class
-    ObjCheckNeigh.validate_Neighbour(Neighbour_List.nodeExists(givenKey2));
-
-    cout << "" << endl;
-
+    int count = ObjCheckNeigh.validate_Neighbour(Neighbour_List.nodeExists(givenKey2));
     
+    if (count == 1) {
+        callRetrieve();
+    }
+    
+    
+    cout << " " << endl;
 
-    callMain(); //Calling AES raw header file
+    //here, some values for checking
+   //unsigned char T[] = { "Ifnv;fkdhfpoadifnaldkn;adsoiv[adoifjewoifjjnkdslnvkjchvp;afa"}; // creating unsigned array to send data to AESRaw for encrypting data
+    //unsigned char T[] = { '550','110','220' }; // creating unsigned array to send data to AESRaw for encrypting data
+    //unsigned char T[] = { '99','70', ',80' };
+    //unsigned char T[] = { "tamim111","shuvo110","111Anir220" };
 
+    Node* temp_AUV = AUV_Outsider_List.head;
+    
+   while (temp_AUV != NULL) {
+        int a = temp_AUV->key;
+        int b = temp_AUV->data;
+        temp_AUV = temp_AUV->next;
+        // Convert both the integers to string
+
+        string s1 = to_string(a);
+        string s2 = to_string(b);
+
+        // Concatenate both strings
+
+        string s = s1 + "conate" + s2;
+        cout << s << endl;
+
+        int n = s.length();
+        cout << n << endl;
+        // declaring character array
+        //char  char_array[n+1];
+
+        char* char_array = new  char[n+1];
+
+        // copying the contents of the
+        // string to char array
+        strcpy(char_array, s.c_str());
+        
+    
+       unsigned char *T= (unsigned char*)char_array;   //passing char array to unsigned array
+    
+        cout << "AES123________________           " << endl;
+
+        callAES(T); //Calling AES raw header file
+
+        cout << "      " << endl;
+        
+        cout << "                                         "<< T << endl;
+
+        cout << "      " << endl;
+        }
+    
+   
+   //callAES(T); //Calling AES raw header file
 
 
 
