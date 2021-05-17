@@ -1,6 +1,6 @@
-
 #include <iostream>
 #include <string>
+#include "SQLInsert.h"
 #include "AESRaw.h"
 #include "Node.h"
 #include "Checking_Authentication.cpp"
@@ -9,15 +9,16 @@
 #include "Checking_AUV_Sensor_Authentication.cpp"
 #include <conio.h>
 #include "SQLRetrieve.h"
+#include <algorithm>
 #include <cstring>
-
 using namespace std;
-int n;
+Node* tem_AUV;
 
 int main()
 {
+    
 
-//List implementation for different different List
+    //List implementation for different different List
 
     SinlglyLinkedList Outsider_List;    //object of a Outsider list
 
@@ -29,7 +30,7 @@ int main()
     Outsider_List.appendNode(&n3);
     Outsider_List.appendNode(&n4);
     cout << "" << endl;
-//asking for a key to check the key value against Outsider list key   
+    //asking for a key to check the key value against Outsider list key   
     int givenKey;
     cout << "Give your key to check that Your given node exits or not in the Outsider List" << endl;
     cin >> givenKey;
@@ -41,21 +42,25 @@ int main()
     SinlglyLinkedList AUV_Outsider_List;    //object of a AUV Sensor Outsider List
 
 //created predefined linked list for AUV Sensor Outsider List
-    Node n5(5, 400);
-    Node n6(7, 500);
-    Node n7(4, 600);
+    Node n5(5, 400678674);
+    Node n6(7, 5006784);
+    Node n7(4, 60009854);
     AUV_Outsider_List.SinglyLinkedList(&n5);
     AUV_Outsider_List.appendNode(&n6);
     AUV_Outsider_List.appendNode(&n7);
     cout << "" << endl;
-//asking for a key value from user to check the key value against AUV Sensor outsider list key
+    //asking for a key value from user to check the key value against AUV Sensor outsider list key
     int givenKey1;
     cout << "Give your key to check that your given node exits or not in the AUV Sensor Outsider List" << endl;
     cin >> givenKey1;
 
     Checking_AUV_Sensor_Authentication ObjCheckAUVSeAu;     //Object of a AUV Sensor Checking Authentication class
-    ObjCheckAUVSeAu.validateC_AUV(AUV_Outsider_List.nodeExists(givenKey1));
+    int countAUV = ObjCheckAUVSeAu.validateC_AUV(AUV_Outsider_List.nodeExists(givenKey1));
+    
 
+    if (countAUV == 1) {
+        callInsert();
+    }
 
     SinlglyLinkedList Neighbour_List;    //object of a Neighbour list
 
@@ -67,31 +72,32 @@ int main()
     Neighbour_List.appendNode(&n9);
     Neighbour_List.appendNode(&n10);
     cout << "" << endl;
-//asking for a key to check the key value against Neighbour List key
-    
+    //asking for a key to check the key value against Neighbour List key
+
     int givenKey2;
     cout << "Give your key to check that your given node exits or not in the Neighbour List" << endl;
     cin >> givenKey2;
 
     Checking_Neighbour ObjCheckNeigh;     //Object of a AUV Sensor checking class
     int count = ObjCheckNeigh.validate_Neighbour(Neighbour_List.nodeExists(givenKey2));
-    
+
     if (count == 1) {
         callRetrieve();
     }
-    
-    
+
+
     cout << " " << endl;
 
     //here, some values for checking
-   //unsigned char T[] = { "Ifnv;fkdhfpoadifnaldkn;adsoiv[adoifjewoifjjnkdslnvkjchvp;afa"}; // creating unsigned array to send data to AESRaw for encrypting data
+    unsigned char T[] = { 's1'};
+    // unsigned char T[] = {"sjkglibjnbjhlhggljbljblkjhljkn111243374532igigjbmbjvljhcljhbljbiunj"}; // creating unsigned array to send data to AESRaw for encrypting data
     //unsigned char T[] = { '550','110','220' }; // creating unsigned array to send data to AESRaw for encrypting data
     //unsigned char T[] = { '99','70', ',80' };
     //unsigned char T[] = { "tamim111","shuvo110","111Anir220" };
 
-    Node* temp_AUV = AUV_Outsider_List.head;
-    
-   while (temp_AUV != NULL) {
+/* temp_AUV = AUV_Outsider_List.head;
+
+  while (temp_AUV != NULL) {
         int a = temp_AUV->key;
         int b = temp_AUV->data;
         temp_AUV = temp_AUV->next;
@@ -107,9 +113,8 @@ int main()
 
         int n = s.length();
         cout << n << endl;
-        // declaring character array
-        //char  char_array[n+1];
 
+        // declaring character array
         char* char_array = new  char[n+1];
 
         // copying the contents of the
@@ -119,19 +124,20 @@ int main()
     
        unsigned char *T= (unsigned char*)char_array;   //passing char array to unsigned array
     
-        cout << "AES123________________           " << endl;
+        cout << "______________________________________________________           " << endl;
+        cout << "--------------" << T << endl;
+        typeid(T).name();
+        cout << "      " << endl;
 
         callAES(T); //Calling AES raw header file
 
-        cout << "      " << endl;
-        
-        cout << "                                         "<< T << endl;
-
+        cout << "      " << endl;        
         cout << "      " << endl;
         }
-    
+
+ */  
    
-   //callAES(T); //Calling AES raw header file
+    callAES(T); //Calling AES raw header file
 
 
 

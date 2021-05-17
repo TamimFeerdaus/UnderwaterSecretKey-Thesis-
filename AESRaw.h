@@ -1,4 +1,3 @@
-#pragma once
 #include<iostream>
 #include <conio.h>
 #include <cstring>
@@ -247,9 +246,8 @@ void PrintHex(unsigned char x) {
 }
 
 
-int callAES(unsigned char* message) {
-
-   // unsigned char message[] = "This is a message we will encrypt with AES" ;
+int callAES(unsigned char *message) {
+    //unsigned char message[] = "This is a message we will encrypt with AES";
     unsigned char key[16] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16, };
 
     int originalLen = strlen((const char*)message);
@@ -276,11 +274,9 @@ int callAES(unsigned char* message) {
         cout << " ";
     }
 
-    _getch();
+    getch();
     delete[] paddedMessage;
 
     return 0;
 
 }
-
-

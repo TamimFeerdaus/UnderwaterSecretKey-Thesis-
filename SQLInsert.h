@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include "Stdafx.h"
 #include <iostream>
 #include <windows.h>
@@ -11,7 +12,7 @@
 using namespace std;
 
 //Displays possible errors that can occur when we use SQL function in c++
-void showSQLError(unsigned int handleType, const SQLHANDLE& handle)
+void showSQLErrorr(unsigned int handleType, const SQLHANDLE& handle)
 {
 	SQLCHAR SQLState[1024];
 	SQLCHAR message[1024];
@@ -20,7 +21,7 @@ void showSQLError(unsigned int handleType, const SQLHANDLE& handle)
 		cout << "SQL driver message: " << message << "\nSQL state: " << SQLState << "." << endl;
 }
 
-void callRetrieve()
+void callInsert()
 {
 	SQLHANDLE SQLEnvHandle = NULL;
 	SQLHANDLE SQLConnectionHandle = NULL;
@@ -28,7 +29,7 @@ void callRetrieve()
 	SQLRETURN retCode = 0;
 	char SQLQuery[] = "SELECT * FROM Employe";
 	//char SQLInsert[] = "insert into Employe(name,id,age) values ('tamim',210,20)";
-	
+
 	do {
 		if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &SQLEnvHandle))
 			// Allocates the environment
@@ -54,15 +55,15 @@ void callRetrieve()
 		case SQL_SUCCESS_WITH_INFO:
 			break;
 		case SQL_NO_DATA_FOUND:
-			showSQLError(SQL_HANDLE_DBC, SQLConnectionHandle);
+			showSQLErrorr(SQL_HANDLE_DBC, SQLConnectionHandle);
 			retCode = -1;
 			break;
 		case SQL_INVALID_HANDLE:
-			showSQLError(SQL_HANDLE_DBC, SQLConnectionHandle);
+			showSQLErrorr(SQL_HANDLE_DBC, SQLConnectionHandle);
 			retCode = -1;
 			break;
 		case SQL_ERROR:
-			showSQLError(SQL_HANDLE_DBC, SQLConnectionHandle);
+			showSQLErrorr(SQL_HANDLE_DBC, SQLConnectionHandle);
 			retCode = -1;
 			break;
 		default:
@@ -75,44 +76,25 @@ void callRetrieve()
 		if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_STMT, SQLConnectionHandle, &SQLStatementHandle))
 			// Allocates the statement
 			break;
-/*
+
 		// for insert data
 		//string name = "xyz";
 		//int age = 20;
 		//int id = 200;
 		//char SQLInsertQury[] = "insert into Employe(name,id,age) values ('"+name+"',"+id+","+age+")";
-		char SQLInsertQury[] = "insert into Employe(name,id,age) values ('xyz',300,22)";
-		if (SQL_SUCCESS != SQLExecDirect(SQLStatementHandle, (SQLCHAR*)SQLInsertQury, SQL_NTS)) {
+		char SQLInsertQuery[] = "insert into Employe(name,id,age) values ('Node2200',1011,21)";
+		if (SQL_SUCCESS != SQLExecDirect(SQLStatementHandle, (SQLCHAR*)SQLInsertQuery, SQL_NTS)) {
 			// Executes a preparable statement
-			showSQLError(SQL_HANDLE_STMT, SQLStatementHandle);
+			showSQLErrorr(SQL_HANDLE_STMT, SQLStatementHandle);
 			break;
 		}
 		else {
-			
-				cout << "Data Inserted!!\n";
-			}
-*/
-		
-		// for select data
-		if (SQL_SUCCESS != SQLExecDirect(SQLStatementHandle, (SQLCHAR*)SQLQuery, SQL_NTS)) {
-			// Executes a preparable statement
-			showSQLError(SQL_HANDLE_STMT, SQLStatementHandle);
-			break;
-		}
-		else {
-			char Name[256];
-			int Id;
-			int Age;
-			while (SQLFetch(SQLStatementHandle) == SQL_SUCCESS) {
-				// Fetches the next rowset of data from the result
-				SQLGetData(SQLStatementHandle, 1, SQL_C_DEFAULT, &Name, sizeof(Name), NULL);
-				SQLGetData(SQLStatementHandle, 2, SQL_C_DEFAULT, &Id, sizeof(Id), NULL);
-				SQLGetData(SQLStatementHandle, 3, SQL_C_DEFAULT, &Age, sizeof(Age), NULL);
-				// Retrieves data for a single column in the result set
-				cout << Name << " " << Id << " " << Age << endl;
-			}
 
+			cout << " AUV Sensor's Data Inserted Into Database Table____!!!\n"; 
+			cout << " " << endl;
 		}
+
+		
 	} while (FALSE);
 
 	SQLFreeHandle(SQL_HANDLE_STMT, SQLStatementHandle);
